@@ -1,5 +1,7 @@
 <?php
 require_once ROOT.'/models/UserModel.php';
+require_once ROOT.'/vendor/autoload.php';
+
 class CheckinController
 {
     public $model;
@@ -49,11 +51,35 @@ class CheckinController
             {
                 if ($this->model->addUser($input) && $this->model->addtoUserfiles($input))
                 {
-                    copy($_FILES['photo']['tmp_name'], $file);
-                    session_start();
-                    $_SESSION['login'] = $username;
-                    $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
-                    header('Location:'.$host.'user');
+                    $mail = new PHPMailer();
+
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.yandex.ru';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'doe.senior';
+                    $mail->Password = 'qwerty123456';
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Port = 465;
+//                    $mail->CharSet = 'UTF-8';
+
+                    $mail->setFrom('doe.senior@yandex.ru', 'HomeWork6');
+                    $mail->addAddress('ar.abelyan@yandex.ru');
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Новый пользователь';
+                    $mail->Body    = "Пользователь <b>$username</b> зарегистрирован!";
+                    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+
+                    if(!$mail->send()) {
+                        echo 'Message could not be sent.';
+                        echo 'Mailer Error: ' . $mail->ErrorInfo;
+                    } else {
+                        copy($_FILES['photo']['tmp_name'], $file);
+                        session_start();
+                        $_SESSION['login'] = $username;
+                        $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
+                        header('Location:'.$host.'user');
+                    }
                 }
                 else
                 {

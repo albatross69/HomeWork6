@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Checkin</title>
+<!--    <script src='https://www.google.com/recaptcha/api.js'></script>-->
 </head>
 <body>
     <form name="checkform" method="post" action="/checkin/reg" enctype="multipart/form-data">
@@ -26,6 +27,8 @@
 
         <p><label for="photo">Фотография<br/>
                 <input type="file" name="photo"></label></p>
+
+<!--        <div class="g-recaptcha" data-sitekey="6LdE9ygTAAAAAPc5wVxfyQ6d3TbPGkslQoOqDCJ-"></div>-->
 
         <p><input type= "submit" value="Регистрация"></p>
     </form>

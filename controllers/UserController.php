@@ -13,7 +13,6 @@ class UserController
         else
         {
             require_once ROOT.'/view/UserView.php';
-            print_r($_SESSION);
         }
     }
 
@@ -111,7 +110,7 @@ class UserController
             session_start();
             session_destroy();
             $host = 'http://'.$_SERVER['HTTP_HOST'].'/';
-            header('Location:'.$host.'/');
+            header('Location:'.$host);
         }
     }
 }
