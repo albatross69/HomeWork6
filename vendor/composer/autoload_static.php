@@ -6,6 +6,16 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitd9befa98c7161d1ecf5f14397a18d745
 {
+    public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Twig_' => 
+            array (
+                0 => __DIR__ . '/..' . '/twig/twig/lib',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
         'PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
@@ -20,6 +30,7 @@ class ComposerStaticInitd9befa98c7161d1ecf5f14397a18d745
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixesPsr0 = ComposerStaticInitd9befa98c7161d1ecf5f14397a18d745::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitd9befa98c7161d1ecf5f14397a18d745::$classMap;
 
         }, null, ClassLoader::class);

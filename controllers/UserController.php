@@ -1,8 +1,11 @@
 <?php
     require_once ROOT.'/models/UserModel.php';
+    require_once ROOT.'/components/View.php';
 class UserController
 {
     public $model;
+    public $view;
+
     public function actionIndex()
     {
         session_start();
@@ -12,7 +15,8 @@ class UserController
         }
         else
         {
-            require_once ROOT.'/view/UserView.php';
+            $this->view = new View();
+            $this->view->generate('UserView.html', array());
         }
     }
 
@@ -37,7 +41,9 @@ class UserController
                     $data[$i]['adult'] = 'Несовершеннолетний';
                 }
             }
-            require_once ROOT . '/view/UserlistView.php';
+            $this->view = new View();
+
+            $this->view->generate('UserlistView.html', array('data' => $data));
         }
     }
 
@@ -99,7 +105,9 @@ class UserController
             $this->model = new UserModel();
             $data = $this->model->getFiles($_SESSION['login']);
 
-            require_once ROOT.'/view/UserfileView.php';
+            $this->view = new View();
+
+            $this->view->generate('UserfileView.html', array('data' => $data));
         }
     }
 

@@ -1,10 +1,12 @@
 <?php
 
-
+require_once ROOT.'/components/View.php';
 class IndexController
 {
+    public $view;
     public function actionIndex()
     {
-        require_once(ROOT.'/view/MainView.php');
+        $this->view = new View();
+        $this->view->generate('Main.html', array());
     }
 }
